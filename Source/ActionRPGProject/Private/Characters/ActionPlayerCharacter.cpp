@@ -2,6 +2,7 @@
 
 
 #include "Characters/ActionPlayerCharacter.h"
+#include "AbilitySystem/ActionRPGAbilitySystemComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
@@ -9,6 +10,7 @@
 #include "EnhancedInputSubsystems.h"
 
 #include "DataAssets/Input/DataAsset_Input.h"
+#include "DataAssets/StartUp/BaseStartUpDataAsset.h"
 #include "Components/Input/ActionRPGInputComponent.h"
 
 #include "ActionRPGGameplayTags.h"
@@ -53,8 +55,19 @@ void AActionPlayerCharacter::SetupPlayerInputComponent(UInputComponent* playerIn
 void AActionPlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+}
 
-	Debug::PrintDebugMessage(TEXT("Working"));
+void AActionPlayerCharacter::PossessedBy(AController* NewController)
+{
+	Super::PossessedBy(NewController);
+
+	if (!m_CharacterStartUpData.IsNull())
+	{
+		if (UBaseStartUpDataAsset* LoadedData = m_CharacterStartUpData.LoadSynchronous())
+		{
+			LoadedData->GiveToAbilitySystemComponent(m_ActionRPGAbilitySystemComponent);
+		}
+	}
 }
 
 void AActionPlayerCharacter::InputMove(const FInputActionValue& inputActionValue)

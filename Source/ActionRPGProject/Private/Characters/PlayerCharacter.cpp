@@ -3,6 +3,9 @@
 
 #include "Characters/PlayerCharacter.h"
 
+#include "AbilitySystem/ActionRPGAbilitySystemComponent.h"
+#include "AbilitySystem/ActionRPGAttributeSet.h"
+
 APlayerCharacter::APlayerCharacter()
 {
 	PrimaryActorTick.bCanEverTick = false;
@@ -10,4 +13,25 @@ APlayerCharacter::APlayerCharacter()
 
 	GetMesh()->bReceivesDecals = false;
 
+
+	m_ActionRPGAbilitySystemComponent = CreateDefaultSubobject<UActionRPGAbilitySystemComponent>(TEXT("AbilitySystemComponent"));
+	m_ActionRPGAttributeSet = CreateDefaultSubobject<UActionRPGAttributeSet>(TEXT("Attributeset"));
+
+}
+
+UAbilitySystemComponent* APlayerCharacter::GetAbilitySystemComponent() const
+{
+	return GetActionRPGAbilitySystemComponent();
+}
+
+void APlayerCharacter::PossessedBy(AController* NewController)
+{
+	Super::PossessedBy(NewController);
+
+	if (m_ActionRPGAbilitySystemComponent)
+	{
+		m_ActionRPGAbilitySystemComponent->InitAbilityActorInfo(this, this);
+
+		ensureMsgf(!m_CharacterStartUpData.IsNull(), TEXT("Forgot to assign start up data to %s"), *GetName());
+	}
 }
