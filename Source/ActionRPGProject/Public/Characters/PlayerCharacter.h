@@ -16,13 +16,18 @@ class ACTIONRPGPROJECT_API APlayerCharacter : public ACharacter, public IAbility
 {
 	GENERATED_BODY()
 
-public:
+public: // Public method
 	APlayerCharacter();
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 
 protected:
 	virtual void PossessedBy(AController* NewController) override;
 
+public: // Geteer Setter
+	FORCEINLINE UActionRPGAbilitySystemComponent* GetActionRPGAbilitySystemComponent() const { return m_ActionRPGAbilitySystemComponent; }
+	FORCEINLINE UActionRPGAttributeSet* GetActionRPGAttributesSet() const { return m_ActionRPGAttributeSet; }
+
+protected: // Protected variables
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AbilitySystem")
 	UActionRPGAbilitySystemComponent* m_ActionRPGAbilitySystemComponent;
 
@@ -31,9 +36,4 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "CharacterData")
 	TSoftObjectPtr<UBaseStartUpDataAsset> m_CharacterStartUpData;
-
-public:
-	FORCEINLINE UActionRPGAbilitySystemComponent* GetActionRPGAbilitySystemComponent() const { return m_ActionRPGAbilitySystemComponent; }
-
-	FORCEINLINE UActionRPGAttributeSet* GetActionRPGAttributesSet() const { return m_ActionRPGAttributeSet; }
 };

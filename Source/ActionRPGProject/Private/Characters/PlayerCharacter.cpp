@@ -8,11 +8,11 @@
 
 APlayerCharacter::APlayerCharacter()
 {
+	// Base parent class
 	PrimaryActorTick.bCanEverTick = false;
 	PrimaryActorTick.bStartWithTickEnabled = false;
 
 	GetMesh()->bReceivesDecals = false;
-
 
 	m_ActionRPGAbilitySystemComponent = CreateDefaultSubobject<UActionRPGAbilitySystemComponent>(TEXT("AbilitySystemComponent"));
 	m_ActionRPGAttributeSet = CreateDefaultSubobject<UActionRPGAttributeSet>(TEXT("Attributeset"));
@@ -24,6 +24,9 @@ UAbilitySystemComponent* APlayerCharacter::GetAbilitySystemComponent() const
 	return GetActionRPGAbilitySystemComponent();
 }
 
+/*
+* PossessedBy method ability system method
+*/
 void APlayerCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
