@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Characters/BaseCharacter.h"
+#include "GameplayTagContainer.h"
 #include "PlayerCharacter.generated.h"
 
 class USpringArmComponent;
@@ -27,8 +28,13 @@ protected:
 	virtual void PossessedBy(AController* NewController) override;
 
 private:
+	// Control player input method
 	void InputMove(const FInputActionValue&);
 	void InputLook(const FInputActionValue&);
+
+	// Ability input method
+	void InputAbilityPressed(FGameplayTag inputTag);
+	void InputAbilityReleased(FGameplayTag inputTag);
 
 private:
 

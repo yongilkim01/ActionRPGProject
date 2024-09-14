@@ -52,8 +52,12 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* playerInputCom
 	check(subSystem);
 	subSystem->AddMappingContext(inputDataAsset_->inputMappingContext_, 0);
 	UActionRPGInputComponent* mainInputComponent = CastChecked<UActionRPGInputComponent>(playerInputComponent);
+
+	// 인풋 메소드와 향상된 인풋 컴포넌트를 바인드
 	mainInputComponent->BindNativeInputAction(inputDataAsset_, ActionRPGGameplayTags::InputTag_Move, ETriggerEvent::Triggered, this, &ThisClass::InputMove);
 	mainInputComponent->BindNativeInputAction(inputDataAsset_, ActionRPGGameplayTags::InputTag_Look, ETriggerEvent::Triggered, this, &ThisClass::InputLook);
+
+	mainInputComponent->BindAbilityInputAction(inputDataAsset_, this, &ThisClass::InputAbilityPressed, &ThisClass::InputAbilityReleased);
 }
 
 void APlayerCharacter::BeginPlay()
@@ -105,4 +109,17 @@ void APlayerCharacter::InputLook(const FInputActionValue& inputActionValue)
 	{
 		AddControllerPitchInput(lookAxisVector.Y);
 	}
+}
+
+void APlayerCharacter::InputAbilityPressed(FGameplayTag inputTag)
+{
+	Debug::PrintDebugMessage("ability pressed");
+	// 어빌리티 시스템 컴포넌트의 기능 메소드 호출
+	characterAbilitySystemComponent_->OnInputAbilityPressed(inputTag);
+}
+
+void APlayerCharacter::InputAbilityReleased(FGameplayTag inputTag)
+{
+	// 어빌리티 시스템 컴포넌트의 기능 메소드 호출
+	characterAbilitySystemComponent_->OnInputAbilityReleased(inputTag);
 }

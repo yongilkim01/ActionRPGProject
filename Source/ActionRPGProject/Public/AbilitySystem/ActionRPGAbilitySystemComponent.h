@@ -13,5 +13,9 @@ UCLASS()
 class ACTIONRPGPROJECT_API UActionRPGAbilitySystemComponent : public UAbilitySystemComponent
 {
 	GENERATED_BODY()
+
+public:
+	void OnInputAbilityPressed(const FGameplayTag& inputTag);
+	void OnInputAbilityReleased(const FGameplayTag& inputTag);
 	
 };
