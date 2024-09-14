@@ -1,14 +1,11 @@
 # Unreal Folders
 Intermediate/*
-Plugins/*/Intermediate/*
-DerivedDataCache/*
-Content/*
 Binaries/*
-Platforms/*
-Assets/*
 Saved/*
+Content/*
 # Visual Studio 2015 user specific files
 .vs
+*.sln
 
 # Compiled Object files
 *.slo
