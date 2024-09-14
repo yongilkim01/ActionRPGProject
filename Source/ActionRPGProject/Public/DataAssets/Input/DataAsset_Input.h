@@ -11,20 +11,26 @@ class UInputAction;
 class UInputMappingContext;
 
 USTRUCT(BlueprintType)
-struct FActionRPGInputConfig
+struct FInputConfig
 {
 	GENERATED_BODY()
 
 public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (Categories = "InputTag"))
-	FGameplayTag m_InputTag;
+	FGameplayTag inputTag_;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	UInputAction* m_InputAction;
+	UInputAction* inputAction_;
+
+	bool IsValid() const
+	{
+		return inputTag_.IsValid() && inputAction_;
+	}
 };
 
 /**
- * 
+ *  Input binding process
+ *  Define input tags(current file) -> mapping input tag with input action -> define input binding method -> define input callback -> fill need function method
  */
 UCLASS()
 class ACTIONRPGPROJECT_API UDataAsset_Input : public UDataAsset
@@ -36,9 +42,12 @@ public:
 	
 public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	UInputMappingContext* m_DefaultMappingContext;
+	UInputMappingContext* inputMappingContext_;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (TitleProperty = "m_InputTag"))
-	TArray<FActionRPGInputConfig> m_NativeInputActions;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (TitleProperty = "InputTag"))
+	TArray<FInputConfig> nativeInputActions_;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (TitleProperty = "InputTag"))
+	TArray<FInputConfig> actionInputActions_;
 
 };

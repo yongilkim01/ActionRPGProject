@@ -4,37 +4,105 @@
 #include "Characters/PlayerCharacter.h"
 
 #include "AbilitySystem/ActionRPGAbilitySystemComponent.h"
-#include "AbilitySystem/ActionRPGAttributeSet.h"
+#include "Components/CapsuleComponent.h"
+#include "GameFramework/SpringArmComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
+#include "Camera/CameraComponent.h"
+#include "EnhancedInputSubsystems.h"
+
+#include "DataAssets/Input/DataAsset_Input.h"
+#include "DataAssets/StartUp/BaseStartUpDataAsset.h"
+#include "Components/Input/ActionRPGInputComponent.h"
+#include "Components/Combat/PlayerCombatComponent.h"
+
+#include "ActionRPGGameplayTags.h"
+#include "ActionRPGDebugHelper.h"
 
 APlayerCharacter::APlayerCharacter()
 {
-	// Base parent class
-	PrimaryActorTick.bCanEverTick = false;
-	PrimaryActorTick.bStartWithTickEnabled = false;
+	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.f);
 
-	GetMesh()->bReceivesDecals = false;
+	bUseControllerRotationPitch = false;
+	bUseControllerRotationYaw = false;
+	bUseControllerRotationRoll = false;
 
-	m_ActionRPGAbilitySystemComponent = CreateDefaultSubobject<UActionRPGAbilitySystemComponent>(TEXT("AbilitySystemComponent"));
-	m_ActionRPGAttributeSet = CreateDefaultSubobject<UActionRPGAttributeSet>(TEXT("Attributeset"));
+	springArm_ = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm"));
+	springArm_->SetupAttachment(GetRootComponent());
+	springArm_->TargetArmLength = 200.f;
+	springArm_->SocketOffset = FVector(0.f, 55.f, 65.f);
+	springArm_->bUsePawnControlRotation = true;
 
+	camera_ = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
+	camera_->SetupAttachment(springArm_, USpringArmComponent::SocketName);
+	camera_->bUsePawnControlRotation = false;
+
+	GetCharacterMovement()->bOrientRotationToMovement = true;
+	GetCharacterMovement()->RotationRate = FRotator(0.f, 500.f, 0.f);
+	GetCharacterMovement()->MaxWalkSpeed = 400.f;
+	GetCharacterMovement()->BrakingDecelerationWalking = 2000.f;
+
+	playerCombatComponent_ = CreateDefaultSubobject<UPlayerCombatComponent>(TEXT("PlayerCombatComponent"));
 }
 
-UAbilitySystemComponent* APlayerCharacter::GetAbilitySystemComponent() const
+void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* playerInputComponent)
 {
-	return GetActionRPGAbilitySystemComponent();
+	checkf(inputDataAsset_, TEXT("Not assign input data asset"));
+	ULocalPlayer* localPlayer = GetController<APlayerController>()->GetLocalPlayer();
+	UEnhancedInputLocalPlayerSubsystem* subSystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(localPlayer);
+	check(subSystem);
+	subSystem->AddMappingContext(inputDataAsset_->inputMappingContext_, 0);
+	UActionRPGInputComponent* mainInputComponent = CastChecked<UActionRPGInputComponent>(playerInputComponent);
+	mainInputComponent->BindNativeInputAction(inputDataAsset_, ActionRPGGameplayTags::InputTag_Move, ETriggerEvent::Triggered, this, &ThisClass::InputMove);
+	mainInputComponent->BindNativeInputAction(inputDataAsset_, ActionRPGGameplayTags::InputTag_Look, ETriggerEvent::Triggered, this, &ThisClass::InputLook);
 }
 
-/*
-* PossessedBy method ability system method
-*/
+void APlayerCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+}
+
 void APlayerCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
 
-	if (m_ActionRPGAbilitySystemComponent)
+	if (!characterStartUpData_.IsNull())
 	{
-		m_ActionRPGAbilitySystemComponent->InitAbilityActorInfo(this, this);
+		if (UBaseStartUpDataAsset* LoadedData = characterStartUpData_.LoadSynchronous())
+		{
+			LoadedData->GiveToAbilitySystemComponent(characterAbilitySystemComponent_);
+		}
+	}
+}
 
-		ensureMsgf(!m_CharacterStartUpData.IsNull(), TEXT("Forgot to assign start up data to %s"), *GetName());
+void APlayerCharacter::InputMove(const FInputActionValue& inputActionValue)
+{
+	const FVector2D moveVector = inputActionValue.Get<FVector2D>();
+	const FRotator moveRotation(0.f, Controller->GetControlRotation().Yaw, 0.f);
+
+	if (moveVector.Y != 0.f)
+	{
+		const FVector forwardDir = moveRotation.RotateVector(FVector::ForwardVector);
+		AddMovementInput(forwardDir, moveVector.Y);
+	}
+
+	if (moveVector.X != 0.f)
+	{
+		const FVector rightDir = moveRotation.RotateVector(FVector::RightVector);
+		AddMovementInput(rightDir, moveVector.X);
+	}
+}
+
+void APlayerCharacter::InputLook(const FInputActionValue& inputActionValue)
+{
+	const FVector2D lookAxisVector = inputActionValue.Get<FVector2D>();
+
+	if (lookAxisVector.X != 0.f)
+	{
+		AddControllerYawInput(lookAxisVector.X);
+	}
+
+	if (lookAxisVector.Y != 0.f)
+	{
+		AddControllerPitchInput(lookAxisVector.Y);
 	}
 }

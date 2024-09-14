@@ -6,7 +6,7 @@
 #include "AnimInstances/ActionRPGCharacterAnimInstance.h"
 #include "ActionRPGPlayerAnimInstance.generated.h"
 
-class AActionPlayerCharacter;
+class APlayerCharacter;
 /**
  * 
  */
@@ -21,14 +21,14 @@ public:
 
 protected:
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "AnimationData|Refrences")
-	AActionPlayerCharacter* m_PlayerCharacter;
+	APlayerCharacter* playerCharacter_;
 
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "AnimationData|LocomotionData")
-	bool m_IsRelax;
+	bool isRelax_;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "AnimationData|LocomotionData")
-	float m_RelaxThreasHold = 5.f;
+	float relaxThreasHold_ = 5.f;
 
-	float m_IdleElpasedTime;
+	float idleTime_;
 	
 };

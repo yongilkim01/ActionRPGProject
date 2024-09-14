@@ -2,15 +2,15 @@
 
 
 #include "AnimInstances/Player/ActionRPGPlayerAnimInstance.h"
-#include "Characters/ActionPlayerCharacter.h"
+#include "Characters/PlayerCharacter.h"
 
 void UActionRPGPlayerAnimInstance::NativeInitializeAnimation()
 {
 	Super::NativeInitializeAnimation();
 
-	if (m_Character)
+	if (character_)
 	{
-		m_PlayerCharacter = Cast<AActionPlayerCharacter>(m_Character);
+		playerCharacter_ = Cast<APlayerCharacter>(character_);
 	}
 }
 
@@ -18,15 +18,15 @@ void UActionRPGPlayerAnimInstance::NativeThreadSafeUpdateAnimation(float DeltaSe
 {
 	Super::NativeThreadSafeUpdateAnimation(DeltaSeconds);
 
-	if (m_HasAcceleration)
+	if (isAction_)
 	{
-		m_IdleElpasedTime = 0.f;
-		m_IsRelax = false;
+		idleTime_ = 0.f;
+		isRelax_ = false;
 	}
 	else
 	{
-		m_IdleElpasedTime += DeltaSeconds;
+		idleTime_ += DeltaSeconds;
 
-		m_IsRelax = (m_IdleElpasedTime >= m_RelaxThreasHold);
+		isRelax_ = (idleTime_ >= relaxThreasHold_);
 	}
 }

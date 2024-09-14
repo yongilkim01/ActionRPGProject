@@ -22,15 +22,15 @@ public:
 
 protected:
 	UPROPERTY()
-	APlayerCharacter* m_Character;
+	APlayerCharacter* character_;
 
 	UPROPERTY()
-	UCharacterMovementComponent* m_CharacterMovementComponent;
+	UCharacterMovementComponent* characterMovementComponent_;
 
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "AnimationData|LocomotionData")
-	float m_GroundSpeed;
+	float groundSpeed_;
 
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "AnimationData|LocomotionData")
-	bool m_HasAcceleration;
+	bool isAction_;
 	
 };

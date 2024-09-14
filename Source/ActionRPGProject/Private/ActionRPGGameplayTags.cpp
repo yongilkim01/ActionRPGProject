@@ -6,6 +6,12 @@
 
 namespace ActionRPGGameplayTags
 {
-	UE_DEFINE_GAMEPLAY_TAG(InputTag_Move, "InputTag.Move")
-	UE_DEFINE_GAMEPLAY_TAG(InputTag_Look, "InputTag.Look")
+	// Input tag
+	UE_DEFINE_GAMEPLAY_TAG(InputTag_Move, "InputTag.Move");
+	UE_DEFINE_GAMEPLAY_TAG(InputTag_Look, "InputTag.Look");
+	UE_DEFINE_GAMEPLAY_TAG(InputTag_Equip, "InputTag.Equip");
+	UE_DEFINE_GAMEPLAY_TAG(InputTag_UnEquip, "InputTag.UnEquip");
+
+	// Player tag
+	UE_DEFINE_GAMEPLAY_TAG(Player_Weapon_Axe, "Player.Weapon.Axe");
 }

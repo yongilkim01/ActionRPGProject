@@ -8,12 +8,12 @@ ABaseWeapon::ABaseWeapon()
 {
 	PrimaryActorTick.bCanEverTick = false;
 
-	m_WeaponMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("WeaponMesh"));
-	SetRootComponent(m_WeaponMesh);
+	weaponStaticMesh_ = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("WeaponMesh"));
+	SetRootComponent(weaponStaticMesh_);
 
-	m_WeaponCollisionBox = CreateDefaultSubobject<UBoxComponent>(TEXT("WeaponCollisionBox"));
-	m_WeaponCollisionBox->SetupAttachment(GetRootComponent());
-	m_WeaponCollisionBox->SetBoxExtent(FVector(20.f));
-	m_WeaponCollisionBox->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	weaponCollisionBox_ = CreateDefaultSubobject<UBoxComponent>(TEXT("WeaponCollisionBox"));
+	weaponCollisionBox_->SetupAttachment(GetRootComponent());
+	weaponCollisionBox_->SetBoxExtent(FVector(20.f));
+	weaponCollisionBox_->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 
 }

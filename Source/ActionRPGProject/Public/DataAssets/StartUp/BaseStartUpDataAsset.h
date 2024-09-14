@@ -6,7 +6,7 @@
 #include "Engine/DataAsset.h"
 #include "BaseStartUpDataAsset.generated.h"
 
-class UActionRPGGameplayAbility;
+class UBaseGameplayAbility;
 class UActionRPGAbilitySystemComponent;
 /**
  * 
@@ -17,15 +17,17 @@ class ACTIONRPGPROJECT_API UBaseStartUpDataAsset : public UDataAsset
 	GENERATED_BODY()
 
 public:
-	virtual void GiveToAbilitySystemComponent(UActionRPGAbilitySystemComponent* InASCToGive, int32 ApplyLevel = 1);
+	// AbilitySystemComponent에게 해당 어빌리티를 주는 메소드
+	virtual void GiveToAbilitySystemComponent(UActionRPGAbilitySystemComponent* ASC, int32 ApplyLevel = 1);
 
 protected:
-	void GrantAbilities(const TArray< TSubclassOf < UActionRPGGameplayAbility > >& InAbilitiesToGive, UActionRPGAbilitySystemComponent* InASCToGive, int32 ApplyLevel = 1);
+	// 
+	void GrantAbilities(const TArray< TSubclassOf < UBaseGameplayAbility > >& InAbilitiesToGive, UActionRPGAbilitySystemComponent* InASCToGive, int32 ApplyLevel = 1);
 
 protected:
 	UPROPERTY(EditDefaultsOnly, Category = "StartUpData")
-	TArray< TSubclassOf < UActionRPGGameplayAbility > > m_ActivateOnGivenAbilities;
+	TArray< TSubclassOf < UBaseGameplayAbility > > startUpGameplayAbilities_;
 
 	UPROPERTY(EditDefaultsOnly, Category = "StartUpData")
-	TArray< TSubclassOf < UActionRPGGameplayAbility > > m_ReactiveAbilities;	
+	TArray< TSubclassOf < UBaseGameplayAbility > > reactiveAbilities_;
 };

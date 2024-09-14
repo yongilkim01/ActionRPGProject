@@ -4,36 +4,55 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
-#include "AbilitySystemInterface.h"
+#include "Characters/BaseCharacter.h"
 #include "PlayerCharacter.generated.h"
 
-class UActionRPGAbilitySystemComponent;
-class UActionRPGAttributeSet;
-class UBaseStartUpDataAsset;
+class USpringArmComponent;
+class UCameraComponent;
+class UDataAsset_Input;
+struct FInputActionValue;
+class UPlayerCombatComponent;
 
 UCLASS()
-class ACTIONRPGPROJECT_API APlayerCharacter : public ACharacter, public IAbilitySystemInterface
+class ACTIONRPGPROJECT_API APlayerCharacter : public ABaseCharacter
 {
 	GENERATED_BODY()
 
-public: // Public method
+public:
 	APlayerCharacter();
-	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 
 protected:
+	virtual void SetupPlayerInputComponent(class UInputComponent*) override;
+	virtual void BeginPlay() override;
 	virtual void PossessedBy(AController* NewController) override;
 
-public: // Geteer Setter
-	FORCEINLINE UActionRPGAbilitySystemComponent* GetActionRPGAbilitySystemComponent() const { return m_ActionRPGAbilitySystemComponent; }
-	FORCEINLINE UActionRPGAttributeSet* GetActionRPGAttributesSet() const { return m_ActionRPGAttributeSet; }
+private:
+	void InputMove(const FInputActionValue&);
+	void InputLook(const FInputActionValue&);
 
-protected: // Protected variables
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AbilitySystem")
-	UActionRPGAbilitySystemComponent* m_ActionRPGAbilitySystemComponent;
+private:
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AbilitySystem")
-	UActionRPGAttributeSet* m_ActionRPGAttributeSet;
+	/*
+	* Component varialbes
+	*/
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "CharacterData")
-	TSoftObjectPtr<UBaseStartUpDataAsset> m_CharacterStartUpData;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera", meta = (AllowPrivateAccess = "true"))
+	USpringArmComponent* springArm_;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera", meta = (AllowPrivateAccess = "true"))
+	UCameraComponent* camera_;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Combat", meta = (AllowPrivateAccess = "true"))
+	UPlayerCombatComponent* playerCombatComponent_;
+
+
+	/*
+	* Input varialbes
+	*/
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "CharacterData", meta = (AllowPrivateAccess = "true"))
+	UDataAsset_Input* inputDataAsset_;
+
+public: // Getter Setter
+	FORCEINLINE UPlayerCombatComponent* GetPlayerCombatComponent() const { return playerCombatComponent_; }
+
 };

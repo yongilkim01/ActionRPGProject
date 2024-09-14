@@ -3,25 +3,25 @@
 
 #include "DataAssets/StartUp/BaseStartUpDataAsset.h"
 #include "AbilitySystem/ActionRPGAbilitySystemComponent.h"
-#include "AbilitySystem/Abilities/ActionRPGGameplayAbility.h"
+#include "AbilitySystem/Abilities/BaseGameplayAbility.h"
 
 
 void UBaseStartUpDataAsset::GiveToAbilitySystemComponent(UActionRPGAbilitySystemComponent* InASCToGive, int32 ApplyLevel)
 {
 	check(InASCToGive);
 
-	GrantAbilities(m_ActivateOnGivenAbilities, InASCToGive, ApplyLevel);
-	GrantAbilities(m_ReactiveAbilities, InASCToGive, ApplyLevel);
+	GrantAbilities(startUpGameplayAbilities_, InASCToGive, ApplyLevel);
+	GrantAbilities(reactiveAbilities_, InASCToGive, ApplyLevel);
 }
 
-void UBaseStartUpDataAsset::GrantAbilities(const TArray<TSubclassOf<UActionRPGGameplayAbility>>& InAbilitiesToGive, UActionRPGAbilitySystemComponent* InASCToGive, int32 ApplyLevel)
+void UBaseStartUpDataAsset::GrantAbilities(const TArray<TSubclassOf<UBaseGameplayAbility>>& InAbilitiesToGive, UActionRPGAbilitySystemComponent* InASCToGive, int32 ApplyLevel)
 {
 	if (InAbilitiesToGive.IsEmpty())
 	{
 		return;
 	}
 
-	for (const TSubclassOf<UActionRPGGameplayAbility>& Ability : InAbilitiesToGive)
+	for (const TSubclassOf<UBaseGameplayAbility>& Ability : InAbilitiesToGive)
 	{
 		if (!Ability) continue;
 

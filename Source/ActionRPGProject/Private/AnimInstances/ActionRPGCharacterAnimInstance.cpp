@@ -7,22 +7,22 @@
 
 void UActionRPGCharacterAnimInstance::NativeInitializeAnimation()
 {
-	m_Character = Cast<APlayerCharacter>(TryGetPawnOwner());
+	character_ = Cast<APlayerCharacter>(TryGetPawnOwner());
 
-	if (m_Character)
+	if (character_)
 	{
-		m_CharacterMovementComponent = m_Character->GetCharacterMovement();
+		characterMovementComponent_ = character_->GetCharacterMovement();
 	}
 }
 
 void UActionRPGCharacterAnimInstance::NativeThreadSafeUpdateAnimation(float DeltaSeconds)
 {
-	if (!m_Character || !m_CharacterMovementComponent)
+	if (!character_ || !characterMovementComponent_)
 	{
 		return;
 	}
 
-	m_GroundSpeed = m_Character->GetVelocity().Size2D();
+	groundSpeed_ = character_->GetVelocity().Size2D();
 
-	m_HasAcceleration = m_CharacterMovementComponent->GetCurrentAcceleration().SizeSquared2D() > 0.f;
+	isAction_ = characterMovementComponent_->GetCurrentAcceleration().SizeSquared2D() > 0.f;
 }

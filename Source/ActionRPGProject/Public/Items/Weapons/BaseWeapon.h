@@ -16,15 +16,15 @@ class ACTIONRPGPROJECT_API ABaseWeapon : public AActor
 public:	
 	ABaseWeapon();
 
-protected:
+protected: // Private variables
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Weapons")
-	UStaticMeshComponent* m_WeaponMesh;
+	UStaticMeshComponent* weaponStaticMesh_;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Weapons")
-	UBoxComponent* m_WeaponCollisionBox;
+	UBoxComponent* weaponCollisionBox_;
 
-public:
-	FORCEINLINE UBoxComponent* GetWeaponCollisionBox() const { return m_WeaponCollisionBox; }
+public: // Get Set
+	FORCEINLINE UBoxComponent* GetWeaponCollisionBox() const { return weaponCollisionBox_; }
 
 };
