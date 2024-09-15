@@ -6,6 +6,8 @@
 #include "Components/Combat/CombatComponent.h"
 #include "PlayerCombatComponent.generated.h"
 
+class APlayerWeapon;
+
 /**
  * 
  */
@@ -14,4 +16,7 @@ class ACTIONRPGPROJECT_API UPlayerCombatComponent : public UCombatComponent
 {
 	GENERATED_BODY()
 	
+public:
+	UFUNCTION(BlueprintCallable, Category = "Character|Combat")
+	APlayerWeapon* GetPlayerCarriedWeaponByTag(FGameplayTag weaponTag_) const;
 };
