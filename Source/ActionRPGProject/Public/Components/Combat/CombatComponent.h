@@ -17,24 +17,24 @@ class ACTIONRPGPROJECT_API UCombatComponent : public UBaseActorComponent
 	GENERATED_BODY()
 
 public:
-	// GameplayTag¿Í BaseWeaponÀ» map °´Ã¼¿¡ µî·ÏÇÏ´Â ¸Ş¼Òµå
+	// GameplayTagì™€ BaseWeaponì„ map ê°ì²´ì— ë“±ë¡í•˜ëŠ” ë©”ì†Œë“œ
 	UFUNCTION(BlueprintCallable, Category = "Character|Combat")
 	void RegisterSpawnedWeapon(FGameplayTag RegistWeaponTag, ABaseWeapon* RegistWeapon, bool bEquip = false);
 
-	// GameplayTag¿¡ ÇØ´çÇÏ´Â BaseWeapon°´Ã¼¸¦ ¹İÈ¯ÇÏ´Â ¸Ş¼Òµå
+	// GameplayTagì— í•´ë‹¹í•˜ëŠ” BaseWeaponê°ì²´ë¥¼ ë°˜í™˜í•˜ëŠ” ë©”ì†Œë“œ
 	UFUNCTION(BlueprintCallable, Category = "Character|Combat")
 	ABaseWeapon* GetCharacterWeaponByTag(FGameplayTag FindWeaponTag) const;
 
-	// ÇöÀç ÀåÂøÁßÀÎ BaseWeapon°´Ã¼¸¦ ¹İÈ¯ÇÏ´Â ¸Ş¼Òµå
+	// í˜„ì¬ ì¥ì°©ì¤‘ì¸ BaseWeaponê°ì²´ë¥¼ ë°˜í™˜í•˜ëŠ” ë©”ì†Œë“œ
 	UFUNCTION(BlueprintCallable, Category = "Character|Combat")
 	ABaseWeapon* GetCurrentEquippedWeapon() const;
 public:
-	// ÇöÀç ÀåÂøÁßÀÎ BaseWeapon °´Ã¼ÀÇ ÇØ´çÇÏ´Â Tag º¯¼ö
+	// í˜„ì¬ ì¥ì°©ì¤‘ì¸ BaseWeapon ê°ì²´ì˜ í•´ë‹¹í•˜ëŠ” Tag ë³€ìˆ˜
 	UPROPERTY(BlueprintReadWrite, Category = "Character|Combat")
 	FGameplayTag currentEquippedWeaponTag_;
 
 private:
-	// BaseWeapon°´Ã¼¿Í GameplayTag¸¦ ¿¬°áÇÏ´Â map º¯¼ö
+	// BaseWeaponê°ì²´ì™€ GameplayTagë¥¼ ì—°ê²°í•˜ëŠ” map ë³€ìˆ˜
 	TMap<FGameplayTag, ABaseWeapon*> characterWeaponMap_;
 	
 };

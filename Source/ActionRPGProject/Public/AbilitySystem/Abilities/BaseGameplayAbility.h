@@ -24,7 +24,7 @@ class ACTIONRPGPROJECT_API UBaseGameplayAbility : public UGameplayAbility
 	GENERATED_BODY()
 
 protected:
-	// UGameplayAbility Å¬·¡½º »ó¼Ó ÀÎÅÍÆäÀÌ½º
+	// UGameplayAbility Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½
 	virtual void OnGiveAbility(const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilitySpec& Spec) override;
 	virtual void EndAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo, bool bReplicateEndAbility, bool bWasCancelled) override;
 
@@ -36,7 +36,7 @@ public: // Getter Setter
 	UFUNCTION(BlueprintPure, Category = "Character|Ability")
 	UCombatComponent* GetCombatComponent() const;
 
-	// Ability system component¸¦ ¹ÝÈ¯ÇÏ´Â ¸Þ¼Òµå
+	// Ability system componentï¿½ï¿½ ï¿½ï¿½È¯ï¿½Ï´ï¿½ ï¿½Þ¼Òµï¿½
 	UFUNCTION(BlueprintPure, Category = "Character|Ability")
 	UActionRPGAbilitySystemComponent* GetActionRPGAbilitySystemComponent() const;
 };

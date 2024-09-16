@@ -8,7 +8,7 @@
 
 APlayerCharacter* UPlayerGameplayAbility::GetPlayerCharacter()
 {
-    // Player character °´Ã¼ÀÇ ¾àÇÑ Æ÷ÀÎÅÍ°¡ À¯È¿ÇÏÁö ¾ÊÀ» °æ¿ì Áï nullptrÀÏ °æ¿ì Å¸ÀÔ Ä³½ºÆ® ÈÄ ÇÒ´ç
+    // Player character ê°ì²´ì˜ ì•½í•œ í¬ì¸í„°ê°€ ìœ íš¨í•˜ì§€ ì•Šì„ ê²½ìš° ì¦‰ nullptrì¼ ê²½ìš° íƒ€ì… ìºìŠ¤íŠ¸ í›„ í• ë‹¹
     if (!weakPlayerCharacter_.IsValid())
     {
         weakPlayerCharacter_ = Cast<APlayerCharacter>(CurrentActorInfo->AvatarActor);
@@ -16,10 +16,10 @@ APlayerCharacter* UPlayerGameplayAbility::GetPlayerCharacter()
     return weakPlayerCharacter_.IsValid() ? weakPlayerCharacter_.Get() : nullptr;
 }
 
-AActionRPGPlayerController* UPlayerGameplayAbility::GetPlayerController()
+AActionRPGPlayerController* UPlayerGameplayAbility::GetPlayerControllerFromActorInfo()
 {
-    // Player controller °´Ã¼ÀÇ ¾àÇÑ Æ÷ÀÎÅÍ°¡ À¯È¿ÇÏÁö ¾ÊÀ» °æ¿ì Áï nullptrÀÏ °æ¿ì Å¸ÀÔ Ä³½ºÆ® ÈÄ ÇÒ´ç
-    if (!weakPlayerCharacter_.IsValid())
+    // Player controller ê°ì²´ì˜ ì•½í•œ í¬ì¸í„°ê°€ ìœ íš¨í•˜ì§€ ì•Šì„ ê²½ìš° ì¦‰ nullptrì¼ ê²½ìš° íƒ€ì… ìºìŠ¤íŠ¸ í›„ í• ë‹¹
+    if (!weakPlayerController_.IsValid())
     {
         weakPlayerController_ = Cast<AActionRPGPlayerController>(CurrentActorInfo->PlayerController);
     }

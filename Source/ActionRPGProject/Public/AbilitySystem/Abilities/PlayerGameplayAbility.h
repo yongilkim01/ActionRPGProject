@@ -18,13 +18,13 @@ class ACTIONRPGPROJECT_API UPlayerGameplayAbility : public UBaseGameplayAbility
 	GENERATED_BODY()
 
 private:
-	// PlayerCharacter °´Ã¼ÀÇ ¾àÇÑ Æ÷ÀÎÅÍ
+	// PlayerCharacter ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	TWeakObjectPtr<APlayerCharacter> weakPlayerCharacter_;
 	
-	// ActionRPGPlayerController °´Ã¼ÀÇ ¾àÇÑ Æ÷ÀÎÅÍ
+	// ActionRPGPlayerController ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	TWeakObjectPtr<AActionRPGPlayerController> weakPlayerController_;
 
-	// PlayerCombatComponent °´Ã¼ÀÇ ¾àÇÑ Æ÷ÀÎÅÍ
+	// PlayerCombatComponent ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	TWeakObjectPtr<UPlayerCombatComponent> weakPlayerCombatComponent_;
 
 public:
@@ -32,7 +32,7 @@ public:
 	APlayerCharacter* GetPlayerCharacter();
 
 	UFUNCTION(BlueprintPure, Category = "Character|Ability")
-	AActionRPGPlayerController* GetPlayerController();
+	AActionRPGPlayerController* GetPlayerControllerFromActorInfo();
 
 	UFUNCTION(BlueprintPure, Category = "Character|Ability")
 	UPlayerCombatComponent* GetPlayerCombatComponent();

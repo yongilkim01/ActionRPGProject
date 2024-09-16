@@ -2,13 +2,8 @@
 
 
 #include "DataAssets/StartUp/PlayerStartUpDataAsset.h"
-#include "AbilitySystem/ActionRPGAbilitySystemComponent.h"
 #include "AbilitySystem/Abilities/BaseGameplayAbility.h"
-
-bool FPlayerAbilitySet::IsValid() const
-{
-	return inputTag_.IsValid() && gameplayAbility_;
-}
+#include "AbilitySystem/ActionRPGAbilitySystemComponent.h"
 
 void UPlayerStartUpDataAsset::GiveToAbilitySystemComponent(UActionRPGAbilitySystemComponent* ASC, int32 ApplyLevel)
 {

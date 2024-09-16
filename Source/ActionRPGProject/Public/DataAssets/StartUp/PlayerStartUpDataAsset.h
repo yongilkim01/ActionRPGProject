@@ -4,22 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "DataAssets/StartUp/BaseStartUpDataAsset.h"
-#include "GameplayTagContainer.h"
+#include "ActionRPGTypes/ActionRPGStructTypes.h"
 #include "PlayerStartUpDataAsset.generated.h"
-
-USTRUCT(BlueprintType)
-struct FPlayerAbilitySet
-{
-	GENERATED_BODY()
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (Categories = "InputTag"))
-	FGameplayTag inputTag_;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	TSubclassOf<UBaseGameplayAbility> gameplayAbility_;
-
-	bool IsValid() const;
-};
 
 /**
  * 
@@ -30,7 +16,7 @@ class ACTIONRPGPROJECT_API UPlayerStartUpDataAsset : public UBaseStartUpDataAsse
 	GENERATED_BODY()
 
 public:
-	// Ability system component¿¡°Ô ½ÃÀÛ µ¥ÀÌÅÍ¸¦ Àü´ŞÇÏ´Â ¿À¹ö¶óÀÌµå ¸Ş¼Òµå
+	// Ability system componentì„ ë°˜í™˜í•˜ëŠ” ë©”ì†Œë“œ
 	virtual void GiveToAbilitySystemComponent(UActionRPGAbilitySystemComponent* ASC, int32 ApplyLevel = 1) override;
 
 private:

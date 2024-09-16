@@ -53,7 +53,7 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* playerInputCom
 	subSystem->AddMappingContext(inputDataAsset_->inputMappingContext_, 0);
 	UActionRPGInputComponent* mainInputComponent = CastChecked<UActionRPGInputComponent>(playerInputComponent);
 
-	// ÀÎÇ² ¸Þ¼Òµå¿Í Çâ»óµÈ ÀÎÇ² ÄÄÆ÷³ÍÆ®¸¦ ¹ÙÀÎµå
+	// ì¸í’‹ ë©”ì†Œë“œì™€ í–¥ìƒëœ ì¸í’‹ ì»´í¬ë„ŒíŠ¸ë¥¼ ë°”ì¸ë“œ
 	mainInputComponent->BindNativeInputAction(inputDataAsset_, ActionRPGGameplayTags::InputTag_Move, ETriggerEvent::Triggered, this, &ThisClass::InputMove);
 	mainInputComponent->BindNativeInputAction(inputDataAsset_, ActionRPGGameplayTags::InputTag_Look, ETriggerEvent::Triggered, this, &ThisClass::InputLook);
 
@@ -114,12 +114,12 @@ void APlayerCharacter::InputLook(const FInputActionValue& inputActionValue)
 void APlayerCharacter::InputAbilityPressed(FGameplayTag inputTag)
 {
 	Debug::PrintDebugMessage("ability pressed");
-	// ¾îºô¸®Æ¼ ½Ã½ºÅÛ ÄÄÆ÷³ÍÆ®ÀÇ ±â´É ¸Þ¼Òµå È£Ãâ
+	// ì–´ë¹Œë¦¬í‹° ì‹œìŠ¤í…œ ì»´í¬ë„ŒíŠ¸ì˜ ê¸°ëŠ¥ ë©”ì†Œë“œ í˜¸ì¶œ
 	characterAbilitySystemComponent_->OnInputAbilityPressed(inputTag);
 }
 
 void APlayerCharacter::InputAbilityReleased(FGameplayTag inputTag)
 {
-	// ¾îºô¸®Æ¼ ½Ã½ºÅÛ ÄÄÆ÷³ÍÆ®ÀÇ ±â´É ¸Þ¼Òµå È£Ãâ
+	// ì–´ë¹Œë¦¬í‹° ì‹œìŠ¤í…œ ì»´í¬ë„ŒíŠ¸ì˜ ê¸°ëŠ¥ ë©”ì†Œë“œ í˜¸ì¶œ
 	characterAbilitySystemComponent_->OnInputAbilityReleased(inputTag);
 }

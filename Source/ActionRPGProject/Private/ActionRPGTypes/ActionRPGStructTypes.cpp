@@ -2,4 +2,9 @@
 
 
 #include "ActionRPGTypes/ActionRPGStructTypes.h"
+#include "AbilitySystem/Abilities/BaseGameplayAbility.h"
 
+bool FPlayerAbilitySet::IsValid() const
+{
+	return inputTag_.IsValid() && gameplayAbility_;
+}

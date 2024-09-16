@@ -5,7 +5,6 @@
 #include "AbilitySystem/ActionRPGAbilitySystemComponent.h"
 #include "Components/Combat/CombatComponent.h"
 
-// Actor에게 ability를 주는 메소드
 void UBaseGameplayAbility::OnGiveAbility(const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilitySpec& Spec)
 {
 	Super::OnGiveAbility(ActorInfo, Spec);

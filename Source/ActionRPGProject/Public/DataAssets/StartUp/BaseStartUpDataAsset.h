@@ -17,7 +17,7 @@ class ACTIONRPGPROJECT_API UBaseStartUpDataAsset : public UDataAsset
 	GENERATED_BODY()
 
 public:
-	// AbilitySystemComponent¿¡°Ô ÇØ´ç ¾îºô¸®Æ¼¸¦ ÁÖ´Â ¸Þ¼Òµå
+	// AbilitySystemComponentë¥¼ ë°˜í™˜í•˜ëŠ” í•¨ìˆ˜
 	virtual void GiveToAbilitySystemComponent(UActionRPGAbilitySystemComponent* ASC, int32 ApplyLevel = 1);
 
 protected:

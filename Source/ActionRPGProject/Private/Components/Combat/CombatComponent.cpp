@@ -6,21 +6,21 @@
 
 #include "ActionRPGDebugHelper.h"
 
-// GameplayTag¿Í BaseWeaponÀ» map °´Ã¼¿¡ µî·ÏÇÏ´Â ¸Ş¼Òµå
+// GameplayTagì™€ BaseWeaponì„ map ê°ì²´ì— ë“±ë¡í•˜ëŠ” ë©”ì†Œë“œ
 void UCombatComponent::RegisterSpawnedWeapon(FGameplayTag RegistWeaponTag, ABaseWeapon* RegistWeapon, bool bEquip)
 {
-	// Weapon tag¸¦ ÅëÇØ¼­ map¿¡ ÀÌ¹Ì Ãß°¡ µÇ¾î ÀÖ´Â tagÀÎÁö¸¦ °Ë»ç
+	// Weapon tagë¥¼ í†µí•´ì„œ mapì— ì´ë¯¸ ì¶”ê°€ ë˜ì–´ ìˆëŠ” tagì¸ì§€ë¥¼ ê²€ì‚¬
 	checkf(!characterWeaponMap_.Contains(RegistWeaponTag), TEXT("%s already add in combat component map variable"), *RegistWeaponTag.ToString());
-	// BaseWeapon°´Ã¼°¡ À¯È¿ÇÑÁö °Ë»ç
+	// BaseWeaponê°ì²´ê°€ ìœ íš¨í•œì§€ ê²€ì‚¬
 	check(RegistWeapon);
 
-	// map¿¡ Ãß°¡
+	// mapì— ì¶”ê°€
 	characterWeaponMap_.Emplace(RegistWeaponTag, RegistWeapon);
 
-	// ÀåÂøÀ» ÇÑ°ÍÀÎÁö¸¦ °Ë»ç
+	// ì¥ì°©ì„ í•œê²ƒì¸ì§€ë¥¼ ê²€ì‚¬
 	if (bEquip)
 	{
-		// ÇöÀç ÀåÂøÁßÀÎ Weapon tag¿¡ µî·ÏÇÏ·Á´Â Weapon tag¸¦ ÇÒ´ç
+		// í˜„ì¬ ì¥ì°©ì¤‘ì¸ Weapon tagì— ë“±ë¡í•˜ë ¤ëŠ” Weapon tagë¥¼ í• ë‹¹
 		currentEquippedWeaponTag_ = RegistWeaponTag;
 	}
 
@@ -29,13 +29,13 @@ void UCombatComponent::RegisterSpawnedWeapon(FGameplayTag RegistWeaponTag, ABase
 	Debug::PrintDebugMessage(DebugMsg);
 }
 
-// GameplayTag¿¡ ÇØ´çÇÏ´Â BaseWeapon°´Ã¼¸¦ ¹İÈ¯ÇÏ´Â ¸Ş¼Òµå
+// GameplayTagì— í•´ë‹¹í•˜ëŠ” BaseWeaponê°ì²´ë¥¼ ë°˜í™˜í•˜ëŠ” ë©”ì†Œë“œ
 ABaseWeapon* UCombatComponent::GetCharacterWeaponByTag(FGameplayTag FindWeaponTag) const
 {
-	// map¿¡¼­ Ã£À¸·Á°íÇÏ´Â Weapon tag¿¡ ÇØ´çÇÏ´Â BaseWeapon°´Ã¼°¡ ÀÖ´ÂÁö¸¦ °Ë»ç
+	// mapì—ì„œ ì°¾ìœ¼ë ¤ê³ í•˜ëŠ” Weapon tagì— í•´ë‹¹í•˜ëŠ” BaseWeaponê°ì²´ê°€ ìˆëŠ”ì§€ë¥¼ ê²€ì‚¬
 	if (characterWeaponMap_.Contains(FindWeaponTag))
 	{
-		// map¿¡¼­ Ã£À¸·Á°í ÇÏ´Â BaseWeapon°´Ã¼ÀÇ Æ÷ÀÎÅÍ ÁÖ¼Ò¸¦ ¹İÈ¯
+		// mapì—ì„œ ì°¾ìœ¼ë ¤ê³  í•˜ëŠ” BaseWeaponê°ì²´ì˜ í¬ì¸í„° ì£¼ì†Œë¥¼ ë°˜í™˜
 		ABaseWeapon* const* FindWeapon = characterWeaponMap_.Find(FindWeaponTag);
 		if (FindWeapon)
 		{
@@ -45,12 +45,12 @@ ABaseWeapon* UCombatComponent::GetCharacterWeaponByTag(FGameplayTag FindWeaponTa
 	return nullptr;
 }
 
-// ÇöÀç ÀåÂøÁßÀÎ BaseWeapon°´Ã¼¸¦ ¹İÈ¯ÇÏ´Â ¸Ş¼Òµå
+// í˜„ì¬ ì¥ì°©ì¤‘ì¸ BaseWeaponê°ì²´ë¥¼ ë°˜í™˜í•˜ëŠ” ë©”ì†Œë“œ
 ABaseWeapon* UCombatComponent::GetCurrentEquippedWeapon() const
 {
-	// ÇöÀç ÀåÂøÁßÀÎ Weapon tag°¡ À¯È¿ÇÏÁö ¾Ê´Â´Ù¸é nullptrÀ» ¹İÈ¯
+	// í˜„ì¬ ì¥ì°©ì¤‘ì¸ Weapon tagê°€ ìœ íš¨í•˜ì§€ ì•ŠëŠ”ë‹¤ë©´ nullptrì„ ë°˜í™˜
 	if (!currentEquippedWeaponTag_.IsValid()) return nullptr;
 
-	// ¸â¹ö ¸Ş¼Òµå¸¦ »ç¿ëÇÏ¿© BaseWeapon °´Ã¼¸¦ ¹İÈ¯
+	// ë©¤ë²„ ë©”ì†Œë“œë¥¼ ì‚¬ìš©í•˜ì—¬ BaseWeapon ê°ì²´ë¥¼ ë°˜í™˜
 	return GetCharacterWeaponByTag(currentEquippedWeaponTag_);
 }

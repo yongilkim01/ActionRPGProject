@@ -2,25 +2,43 @@
 
 
 #include "AbilitySystem/ActionRPGAbilitySystemComponent.h"
+#include "AbilitySystem/Abilities/BaseGameplayAbility.h"
 
 void UActionRPGAbilitySystemComponent::OnInputAbilityPressed(const FGameplayTag& inputTag)
 {
-	// ÀÎÇ² ÅÂ±×°¡ À¯È¿ÇÑÁö °Ë»ç
+	// ì¸í’‹ íƒœê·¸ê°€ ìœ íš¨í•œì§€ ê²€ì‚¬
 	if (!inputTag.IsValid()) return;
 
 	/**
-	* GetActivatableAbilities() : ÇöÀç È°¼ºÈ­ ÇÒ ¼ö ÀÖ´Â ¸ğµç ¾îºô¸®Æ¼µéÀÇ ¹è¿­À» ¹İÈ¯
+	* GetActivatableAbilities() : í˜„ì¬ í™œì„±í™” í•  ìˆ˜ ìˆëŠ” ëª¨ë“  ì–´ë¹Œë¦¬í‹°ë“¤ì˜ ë°°ì—´ì„ ë°˜í™˜
 	*/
 	for (const FGameplayAbilitySpec& abilitySpec : GetActivatableAbilities())
 	{
-		// ¾îºô¸®Æ¼ÀÇ ÅÂ±×Áß ÀÏÄ¡ÇÏ´Â ÅÂ±×°¡ ÀÖ´ÂÁö °Ë»ç
+		// ì–´ë¹Œë¦¬í‹°ì˜ íƒœê·¸ ì¤‘ ì¼ì¹˜í•˜ëŠ” íƒœê·¸ê°€ ì´ëŠ”ì§€ ê²€ì‚¬
 		if (!abilitySpec.DynamicAbilityTags.HasTagExact(inputTag)) continue;
 		
-		// ¾îºô¸®Æ¼¸¦ È°¼ºÈ­
+		// ì–´ë¹Œë¦¬í‹°ë¥¼ í™œì„±í™”
 		TryActivateAbility(abilitySpec.Handle);
 	}
 }
 
 void UActionRPGAbilitySystemComponent::OnInputAbilityReleased(const FGameplayTag& inputTag)
 {
+}
+
+void UActionRPGAbilitySystemComponent::GrantPlayerWeaponAbilites(const TArray<FPlayerAbilitySet>& weaponAbilites, int32 applyLevel, TArray<FGameplayAbilitySpecHandle>& grantedAbilitySpecHandles)
+{
+	if (weaponAbilites.IsEmpty()) return;
+
+	for (const FPlayerAbilitySet& abilitySet : weaponAbilites)
+	{
+		if (!abilitySet.IsValid()) continue;
+		
+		FGameplayAbilitySpec abilitySpec(abilitySet.gameplayAbility_);
+		abilitySpec.SourceObject = GetAvatarActor();
+		abilitySpec.Level = applyLevel;
+		abilitySpec.DynamicAbilityTags.AddTag(abilitySet.inputTag_);
+
+		grantedAbilitySpecHandles.AddUnique(GiveAbility(abilitySpec));
+	}
 }

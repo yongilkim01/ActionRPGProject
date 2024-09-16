@@ -2,9 +2,27 @@
 
 #pragma once
 
+#include "GameplayTagContainer.h"
 #include "ActionRPGStructTypes.generated.h"
 
 class UActionRPGLinkedAnimInstance;
+class UBaseGameplayAbility;
+class UInputMappingContext;
+
+USTRUCT(BlueprintType)
+struct FPlayerAbilitySet
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (Categories = "InputTag"))
+	FGameplayTag inputTag_;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	TSubclassOf<UBaseGameplayAbility> gameplayAbility_;
+
+	bool IsValid() const;
+};
+
 
 USTRUCT(BlueprintType)
 struct FPlayerWeaponData
@@ -13,4 +31,10 @@ struct FPlayerWeaponData
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	TSubclassOf<UActionRPGLinkedAnimInstance> weaponLinkedAnimLayer_;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	UInputMappingContext* weaponInputMappingContext_;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (TitleProperty = "InputTag"))
+	TArray<FPlayerAbilitySet> playerWeaponAbilites_;
 };
