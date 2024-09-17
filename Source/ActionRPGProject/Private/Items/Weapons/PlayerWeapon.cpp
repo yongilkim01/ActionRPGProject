@@ -3,3 +3,12 @@
 
 #include "Items/Weapons/PlayerWeapon.h"
 
+void APlayerWeapon::AssignWeaponAbilitySpecHandles(const TArray<FGameplayAbilitySpecHandle>& inSpecHandles)
+{
+    weaponAbilitySpecHandles_ = inSpecHandles;
+}
+
+TArray<FGameplayAbilitySpecHandle> APlayerWeapon::GetWeaponAbilitySpecHandles() const
+{
+    return weaponAbilitySpecHandles_;
+}

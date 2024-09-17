@@ -21,4 +21,7 @@ public:
 	
 	UFUNCTION(BlueprintCallable, Category = "Character|Ability", meta = (applyLevel = "1"))
 	void GrantPlayerWeaponAbilites(const TArray<FPlayerAbilitySet>& weaponAbilites, int32 applyLevel, TArray<FGameplayAbilitySpecHandle>& grantedAbilitySpecHandles);
+
+	UFUNCTION(BlueprintCallable, Category = "Character|Ability")
+	void RemovePlayerWeaponAbilities(UPARAM(ref) TArray<FGameplayAbilitySpecHandle>& inRemoveSpecHandles);
 };

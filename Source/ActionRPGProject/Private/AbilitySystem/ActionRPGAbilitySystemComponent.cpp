@@ -42,3 +42,18 @@ void UActionRPGAbilitySystemComponent::GrantPlayerWeaponAbilites(const TArray<FP
 		grantedAbilitySpecHandles.AddUnique(GiveAbility(abilitySpec));
 	}
 }
+
+void UActionRPGAbilitySystemComponent::RemovePlayerWeaponAbilities(UPARAM(ref)TArray<FGameplayAbilitySpecHandle>& inRemoveSpecHandles)
+{
+	if (inRemoveSpecHandles.IsEmpty()) return;
+
+	for (const FGameplayAbilitySpecHandle& specHandle : inRemoveSpecHandles)
+	{
+		if (specHandle.IsValid())
+		{
+			ClearAbility(specHandle);
+		}
+	}
+
+	inRemoveSpecHandles.Empty();
+}
