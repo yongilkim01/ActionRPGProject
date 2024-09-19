@@ -28,12 +28,12 @@ private:
 	TWeakObjectPtr<UPlayerCombatComponent> weakPlayerCombatComponent_;
 
 public:
-	UFUNCTION(BlueprintPure, Category = "Character|Ability")
+	UFUNCTION(BlueprintPure, Category = "ActionRPG|Ability")
 	APlayerCharacter* GetPlayerCharacter();
 
-	UFUNCTION(BlueprintPure, Category = "Character|Ability")
+	UFUNCTION(BlueprintPure, Category = "ActionRPG|Ability")
 	AActionRPGPlayerController* GetPlayerControllerFromActorInfo();
 
-	UFUNCTION(BlueprintPure, Category = "Character|Ability")
+	UFUNCTION(BlueprintPure, Category = "ActionRPG|Ability")
 	UPlayerCombatComponent* GetPlayerCombatComponent();
 };

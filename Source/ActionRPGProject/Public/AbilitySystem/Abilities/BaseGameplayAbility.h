@@ -33,10 +33,10 @@ protected:
 	EAbilityActivationPolicy abilityActivationPolicy_ = EAbilityActivationPolicy::EAP_OnTriggered;
 
 public: // Getter Setter
-	UFUNCTION(BlueprintPure, Category = "Character|Ability")
+	UFUNCTION(BlueprintPure, Category = "ActionRPG|Ability")
 	UCombatComponent* GetCombatComponent() const;
 
 	// Ability system component�� ��ȯ�ϴ� �޼ҵ�
-	UFUNCTION(BlueprintPure, Category = "Character|Ability")
+	UFUNCTION(BlueprintPure, Category = "ActionRPG|Ability")
 	UActionRPGAbilitySystemComponent* GetActionRPGAbilitySystemComponent() const;
 };
