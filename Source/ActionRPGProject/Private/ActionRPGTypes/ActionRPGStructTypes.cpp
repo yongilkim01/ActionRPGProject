@@ -2,7 +2,7 @@
 
 
 #include "ActionRPGTypes/ActionRPGStructTypes.h"
-#include "AbilitySystem/Abilities/BaseGameplayAbility.h"
+#include "AbilitySystem/Abilities/PlayerGameplayAbility.h"
 
 bool FPlayerAbilitySet::IsValid() const
 {

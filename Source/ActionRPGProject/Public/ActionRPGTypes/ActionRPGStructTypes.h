@@ -6,7 +6,7 @@
 #include "ActionRPGStructTypes.generated.h"
 
 class UActionRPGLinkedAnimInstance;
-class UBaseGameplayAbility;
+class UPlayerGameplayAbility;
 class UInputMappingContext;
 
 USTRUCT(BlueprintType)
@@ -18,7 +18,7 @@ struct FPlayerAbilitySet
 	FGameplayTag inputTag_;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	TSubclassOf<UBaseGameplayAbility> gameplayAbility_;
+	TSubclassOf<UPlayerGameplayAbility> gameplayAbility_;
 
 	bool IsValid() const;
 };
