@@ -4,6 +4,10 @@
 #include "Characters/EnemyCharacter.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Components/Combat/EnemyCombatComponent.h"
+#include "DataAssets/StartUp/EnemyStartUpDataAsset.h"
+#include "Engine/AssetManager.h"
+
+#include "ActionRPGDebugHelper.h"
 
 AEnemyCharacter::AEnemyCharacter()
 {
@@ -33,4 +37,42 @@ AEnemyCharacter::AEnemyCharacter()
 	// 몬스터의 전투 컴포넌트 생성
 	enemyCombatComponent_ =  CreateDefaultSubobject<UEnemyCombatComponent>("EnemyCombatComponent");
 
+}
+
+void AEnemyCharacter::PossessedBy(AController* inController)
+{
+	// 부모 클래스의 PossessedBy 메소드 호출
+	Super::PossessedBy(inController);
+
+	// 적 캐릭터의 초기화 데이터를 설정하는 메소드 호출
+	InitEnemyStartUpData();
+}
+
+void AEnemyCharacter::InitEnemyStartUpData()
+{
+	// 초기화 데이터가 유효하지 않으면 함수 종료
+	if (characterStartUpData_.IsNull()) return;
+
+
+	/**
+	* 비동기 방식으로 초기화 데이터를 로드 요청
+	* 데이터가 필요할 때 즉시 로드하지 않고, 나중에 필요할 때 자동으로 로드하는 함수
+	*/
+	UAssetManager::GetStreamableManager().RequestAsyncLoad(
+		characterStartUpData_.ToSoftObjectPath(), // 로드할 소프트 오브젝트 경로
+		FStreamableDelegate::CreateLambda(
+			[this]() // 로드 완료 후 호출될 람다 함수
+			{
+				// 로드된 데이터가 유효하면
+				if (UBaseStartUpDataAsset* loadedData = characterStartUpData_.Get())
+				{
+					// 초기화 데이터를 Ability System Component에 적용
+					loadedData->GiveToAbilitySystemComponent(characterAbilitySystemComponent_);
+
+					// 디버그 메시지 출력: 초기화 데이터 로드 완료
+					Debug::PrintDebugMessage(TEXT("Enemy start up data loaded"), FColor::Green);
+				}
+			}
+		)
+	);
 }
