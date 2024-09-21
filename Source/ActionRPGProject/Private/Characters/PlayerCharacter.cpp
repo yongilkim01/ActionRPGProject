@@ -44,6 +44,11 @@ APlayerCharacter::APlayerCharacter()
 	playerCombatComponent_ = CreateDefaultSubobject<UPlayerCombatComponent>(TEXT("PlayerCombatComponent"));
 }
 
+UCombatComponent* APlayerCharacter::GetCombatComponent() const
+{
+	return playerCombatComponent_;
+}
+
 void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* playerInputComponent)
 {
 	checkf(inputDataAsset_, TEXT("Not assign input data asset"));

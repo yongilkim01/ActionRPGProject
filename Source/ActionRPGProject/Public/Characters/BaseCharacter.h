@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "AbilitySystemInterface.h"
+#include "Interfaces/BaseCombatInterface.h"
 #include "BaseCharacter.generated.h"
 
 class UActionRPGAbilitySystemComponent;
@@ -12,13 +13,15 @@ class UActionRPGAttributeSet;
 class UBaseStartUpDataAsset;
 
 UCLASS()
-class ACTIONRPGPROJECT_API ABaseCharacter : public ACharacter, public IAbilitySystemInterface
+class ACTIONRPGPROJECT_API ABaseCharacter : public ACharacter, public IAbilitySystemInterface, public IBaseCombatInterface
 {
 	GENERATED_BODY()
 
 public: // Public method
 	ABaseCharacter();
+
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
+	virtual UCombatComponent* GetCombatComponent() const override;
 
 protected:
 	virtual void PossessedBy(AController* NewController) override;

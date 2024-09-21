@@ -24,6 +24,11 @@ UAbilitySystemComponent* ABaseCharacter::GetAbilitySystemComponent() const
 	return GetActionRPGAbilitySystemComponent();
 }
 
+UCombatComponent* ABaseCharacter::GetCombatComponent() const
+{
+	return nullptr;
+}
+
 /*
 * PossessedBy method ability system method
 */

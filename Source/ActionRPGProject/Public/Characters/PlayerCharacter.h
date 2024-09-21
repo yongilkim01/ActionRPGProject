@@ -22,6 +22,8 @@ class ACTIONRPGPROJECT_API APlayerCharacter : public ABaseCharacter
 public:
 	APlayerCharacter();
 
+	virtual UCombatComponent* GetCombatComponent() const override;
+
 protected:
 	virtual void SetupPlayerInputComponent(class UInputComponent*) override;
 	virtual void BeginPlay() override;

@@ -18,6 +18,8 @@ class ACTIONRPGPROJECT_API AEnemyCharacter : public ABaseCharacter
 public:
 	AEnemyCharacter();
 
+	virtual UCombatComponent* GetCombatComponent() const override;
+
 protected:
 	/**
 	* AI가 이 적 캐릭터를 소유할 때 호출되는 함수

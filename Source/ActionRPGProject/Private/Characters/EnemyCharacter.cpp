@@ -33,10 +33,14 @@ AEnemyCharacter::AEnemyCharacter()
 	// 몬스터가 걷는 중 멈출 때 제동 감속 설정
 	GetCharacterMovement()->BrakingDecelerationWalking = 1000.f;
 
-
 	// 몬스터의 전투 컴포넌트 생성
 	enemyCombatComponent_ =  CreateDefaultSubobject<UEnemyCombatComponent>("EnemyCombatComponent");
 
+}
+
+UCombatComponent* AEnemyCharacter::GetCombatComponent() const
+{
+	return enemyCombatComponent_;
 }
 
 void AEnemyCharacter::PossessedBy(AController* inController)
