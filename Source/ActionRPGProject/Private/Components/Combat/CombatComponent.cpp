@@ -77,6 +77,8 @@ void UCombatComponent::ToggleWeaponCollision(bool inIsShouldEnable, EToggleDamag
 		{
 			// 충돌을 비활성화(NoCollision)하고 디버그 메시지 출력
 			weaponToToggle->GetWeaponCollisionBox()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+			// 비활성화 하면서 콜리전 도중 추가된 액터들의 배열을 초기화
+			overlappedActors_.Empty();
 		}
 	}
 

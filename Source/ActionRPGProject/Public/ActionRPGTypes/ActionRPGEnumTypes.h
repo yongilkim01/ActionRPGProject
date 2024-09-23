@@ -13,3 +13,10 @@ enum class EActionRPGValidType : uint8
 	EAV_Valid,
 	EAV_InValid
 };
+
+UENUM()
+enum class EActionRPGSuccessType : uint8
+{
+	EAS_Successful,
+	EAS_Failed
+};

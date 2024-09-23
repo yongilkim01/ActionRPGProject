@@ -21,11 +21,27 @@ class ACTIONRPGPROJECT_API UPlayerCombatComponent : public UCombatComponent
 public:
 	/**
 	 * 주어진 GameplayTag에 해당하는 플레이어가 소지한 무기를 반환하는 메소드.
-	 * @param weaponTag_ 찾고자 하는 무기의 GameplayTag
+	 * 
+	 * @param weaponTag 찾고자 하는 무기의 GameplayTag
 	 * @return 플레이어가 소지한 APlayerWeapon 객체 또는 nullptr
 	 */
 	UFUNCTION(BlueprintCallable, Category = "ActionRPG|Combat")
-	APlayerWeapon* GetPlayerCarriedWeaponByTag(FGameplayTag weaponTag_) const;
+	APlayerWeapon* GetPlayerCarriedWeaponByTag(FGameplayTag weaponTag) const;
+	/**
+	 * 현재 플레이어가 장비하고 있는 무기를 반환하는 메소드.
+	 *
+	 * @return 플레이어가 장비한 APlayerWeapon 객체 또는 nullptr
+	 */
+	UFUNCTION(BlueprintCallable, Category = "ActionRPG|Combat")
+	APlayerWeapon* GetPlayerCurrentEquippedWeapon() const;
+	/**
+	 * 플레이어가 현재 장착한 무기의 레벨에 따른 피해량을 반환하는 메소드.
+	 *
+	 * @param inLevel - 무기의 레벨, 해당 레벨에 맞는 피해량을 계산
+	 * @return float - 입력된 레벨에 따른 무기의 현재 피해량
+	 */
+	UFUNCTION(BlueprintCallable, Category = "ActionRPG|Combat")
+	float GetPlayerCurrentEquipWeaponDamageAtLevel(float inLevel) const;
 	/**
 	 * 충돌한 목표 액터와의 상호작용을 처리하는 메소드.
 	 * @param inHitActor 충돌한 액터

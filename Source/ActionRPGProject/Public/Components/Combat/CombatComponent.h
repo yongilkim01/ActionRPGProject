@@ -85,6 +85,13 @@ public:
 	UPROPERTY(BlueprintReadWrite, Category = "ActionRPG|Combat")
 	FGameplayTag currentEquippedWeaponTag_;
 
+protected:
+	/**
+	 * 콜리전된 액터들의 배열
+	 * OnCollision 관련 메소드들에서 사용
+	 */
+	TArray<AActor*> overlappedActors_;
+
 private:
 	/**
 	 * 캐릭터가 소유한 무기를 관리하는 map
