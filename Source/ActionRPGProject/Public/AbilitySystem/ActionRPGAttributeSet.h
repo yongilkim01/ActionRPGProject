@@ -61,4 +61,9 @@ public:
 	FGameplayAttributeData defensePower_;
 	ATTRIBUTE_ACCESSORS(UActionRPGAttributeSet, defensePower_)
 
+	// 방어력 (읽기 전용 속성, 블루프린트에서 사용 가능)
+	UPROPERTY(BlueprintReadOnly, Category = "Damage")
+	FGameplayAttributeData damageTaken_;
+	ATTRIBUTE_ACCESSORS(UActionRPGAttributeSet, damageTaken_)
+
 };

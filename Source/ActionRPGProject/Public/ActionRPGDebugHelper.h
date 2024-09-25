@@ -16,9 +16,7 @@ namespace Debug
 		if (GEngine)
 		{
 			const FString FinalMsg = FloatTitle + TEXT(": ") + FString::SanitizeFloat(FloatValueToPrint);
-
 			GEngine->AddOnScreenDebugMessage(InKey, 7.f, Color, FinalMsg);
-
 			UE_LOG(LogTemp, Warning, TEXT("%s"), *FinalMsg);
 		}
 	}
