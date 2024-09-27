@@ -122,7 +122,7 @@ void UGEExecCalcDamageTaken::Execute_Implementation(const FGameplayEffectCustomE
     // 이 경우에는 소스의 attackPower_Def(공격력)를 평가하고, SourceAttackPower에 저장함.
     float SourceAttackPower = 0.f;
     ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(GetActionRPGDmageCapture().attackPower_Def, EvaluateParameters, SourceAttackPower);
-    Debug::Print(TEXT("SourceAttackPower"), SourceAttackPower); // 캡처된 소스 공격력 디버그 출력.
+    //Debug::Print(TEXT("SourceAttackPower"), SourceAttackPower); // 캡처된 소스 공격력 디버그 출력.
 
     // SetByCaller 방식으로 전달된 값 중 기본 피해량(BaseDamage)을 초기화.
     // GameplayEffect를 적용할 때, 개발자가 특정 피해량이나 값들을 직접 SetByCaller로 지정할 수 있음.
@@ -139,19 +139,19 @@ void UGEExecCalcDamageTaken::Execute_Implementation(const FGameplayEffectCustomE
         if (TagMagnitude.Key.MatchesTagExact(ActionRPGGameplayTags::Shared_SetByCaller_BaseDamage))
         {
             BaseDamage = TagMagnitude.Value;  // BaseDamage를 설정.
-            Debug::Print(TEXT("BaseDamage"), BaseDamage); // 캡처된 BaseDamage 디버그 출력.
+            //Debug::Print(TEXT("BaseDamage"), BaseDamage); // 캡처된 BaseDamage 디버그 출력.
         }
         // SetByCaller 태그 중 가벼운 공격 콤보 횟수를 설정하는 태그를 찾음.
         if (TagMagnitude.Key.MatchesTagExact(ActionRPGGameplayTags::Player_SetByCaller_AttackType_Light))
         {
             UsedLightAttckComboCount = TagMagnitude.Value;  // 가벼운 공격 콤보 횟수를 설정.
-            Debug::Print(TEXT("UsedLightAttckComboCount"), UsedLightAttckComboCount); // 디버그 출력.
+            //Debug::Print(TEXT("UsedLightAttckComboCount"), UsedLightAttckComboCount); // 디버그 출력.
         }
         // SetByCaller 태그 중 강한 공격 콤보 횟수를 설정하는 태그를 찾음.
         if (TagMagnitude.Key.MatchesTagExact(ActionRPGGameplayTags::Player_SetByCaller_AttackType_Heavy))
         {
             UsedHeavyAttackComboCount = TagMagnitude.Value;  // 강한 공격 콤보 횟수를 설정.
-            Debug::Print(TEXT("UsedHeavyAttackComboCount"), UsedHeavyAttackComboCount); // 디버그 출력.
+            //Debug::Print(TEXT("UsedHeavyAttackComboCount"), UsedHeavyAttackComboCount); // 디버그 출력.
         }
     }
 
@@ -159,7 +159,7 @@ void UGEExecCalcDamageTaken::Execute_Implementation(const FGameplayEffectCustomE
     // 타겟의 방어력 속성을 평가하여 피해 감소 또는 다른 방어 계산을 할 수 있도록 준비함.
     float TargetDefensePower = 0.f;
     ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(GetActionRPGDmageCapture().defensePower_Def, EvaluateParameters, TargetDefensePower);
-    Debug::Print(TEXT("TargetDefensePower"), TargetDefensePower); // 캡처된 타겟 방어력 디버그 출력.
+    //Debug::Print(TEXT("TargetDefensePower"), TargetDefensePower); // 캡처된 타겟 방어력 디버그 출력.
 
     // 가벼운 공격 콤보가 있을 경우, 콤보 횟수에 따라 피해량을 증가시키는 로직.
     // UsedLightAttckComboCount가 0이 아닐 때 콤보 횟수를 기반으로 피해량을 증가시킴.
@@ -168,7 +168,7 @@ void UGEExecCalcDamageTaken::Execute_Implementation(const FGameplayEffectCustomE
         // 가벼운 공격 콤보 횟수에 따른 피해 증가 비율 계산 (5%씩 증가).
         const float DamageIncreasePercentLight = (UsedLightAttckComboCount - 1) * 0.05 + 1.f;
         BaseDamage *= DamageIncreasePercentLight; // 기본 피해량에 비율을 곱해 최종 피해량을 갱신.
-        Debug::Print(TEXT("ScaledBaseDamageLight"), BaseDamage); // 수정된 가벼운 공격 피해량 디버그 출력.
+        //Debug::Print(TEXT("ScaledBaseDamageLight"), BaseDamage); // 수정된 가벼운 공격 피해량 디버그 출력.
     }
 
     // 강한 공격 콤보가 있을 경우, 콤보 횟수에 따라 피해량을 증가시키는 로직.
@@ -178,7 +178,7 @@ void UGEExecCalcDamageTaken::Execute_Implementation(const FGameplayEffectCustomE
         // 강한 공격 콤보 횟수에 따른 피해 증가 비율 계산 (15%씩 증가).
         const float DamageIncreasePercentHeavy = UsedHeavyAttackComboCount * 0.15f + 1.f;
         BaseDamage *= DamageIncreasePercentHeavy; // 기본 피해량에 비율을 곱해 최종 피해량을 갱신.
-        Debug::Print(TEXT("ScaledBaseDamageHeavy"), BaseDamage); // 수정된 강한 공격 피해량 디버그 출력.
+        //Debug::Print(TEXT("ScaledBaseDamageHeavy"), BaseDamage); // 수정된 강한 공격 피해량 디버그 출력.
     }
 
     // 최종 피해량 계산: 소스의 공격력과 타겟의 방어력을 기반으로 피해량을 계산.

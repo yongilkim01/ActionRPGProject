@@ -31,6 +31,19 @@ class ACTIONRPGPROJECT_API UActionRPGAttributeSet : public UAttributeSet
 public:
 	UActionRPGAttributeSet();
 
+	/**
+	 * Gameplay Effect가 속성에 적용된 후 자동으로 호출.
+	 * 주로 게임 내 속성(예: 체력, 방어력, 공격력 등)에 변화가 생겼을 때, 그 변화를 처리하는 로직을 구현.
+	 * 예를 들어, 데미지를 받았을 때 체력을 감소시키거나, 체력이 0이 되었을 때 캐릭터의 사망 처리.
+	 *
+	 * FGameplayEffectModCallbackData는 효과가 발생할 때 전달되는 데이터로,
+	 * 여기에는 효과를 발생시킨 원인(공격자, 아이템 등)과 영향을 받는 속성에 대한 정보가 포함.
+	 *
+	 * @param data FGameplayEffectModCallbackData 구조체로 전달되는 효과 발생 데이터.
+	 *             이 데이터에는 효과를 발생시킨 대상, 속성 변동의 원인, 속성 값의 변화를 추적하는 정보 등이 포함.
+	 */
+	virtual void PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData& data) override;
+public:
 	//현재 체력 (읽기 전용 속성, 블루프린트에서 사용 가능)
 	UPROPERTY(BlueprintReadOnly, Category = "Health")
 	FGameplayAttributeData currentHealth_;
